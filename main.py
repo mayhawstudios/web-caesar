@@ -50,3 +50,5 @@ def encrypt():
 def index():
     form = page_header + cypher_form + page_footer
     return form
+
+app.run()
