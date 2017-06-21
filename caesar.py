@@ -1,19 +1,27 @@
 import string
-from helpers import alphabet_position, rotate_character
 
-def encrypt(text, rot):
-    encrypted_text = ""
+def alphabet_position(letter):
+    alpha_dict = {}
+    letter = letter.lower()
 
-    for t in text:
-        encrypted_text += rotate_character(t, rot)
+    for n in range(0,26):
+        alpha_dict[string.ascii_lowercase[n]] = n
+    
+    return alpha_dict[letter]
 
-    return encrypted_text
 
-def main():
-    message = input("Type a message:")
-    rotate = int(input("Rotate by:"))
+def rotate_character(char, rot):
+    capitalize = False
 
-    print(encrypt(message, rotate))
+    if char in string.ascii_letters:
+        if char.isupper():
+            capitalize = True
 
-if __name__ == "__main__":
-    main()
+        char_val = (alphabet_position(char) + rot) % 26
+
+        if capitalize:
+            return string.ascii_uppercase[char_val]
+        else:
+            return string.ascii_lowercase[char_val]
+    else:
+        return char
