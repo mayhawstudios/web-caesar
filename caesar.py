@@ -1,27 +1,18 @@
-import string
+def alphabet_position(character):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    lower = character.lower()
+    return alphabet.index(lower)
 
-def alphabet_position(letter):
-    alpha_dict = {}
-    letter = letter.lower()
+def rotate_string_13(text):
 
-    for n in range(0,26):
-        alpha_dict[string.ascii_lowercase[n]] = n
-    
-    return alpha_dict[letter]
+    rotated = ''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
-
-def rotate_character(char, rot):
-    capitalize = False
-
-    if char in string.ascii_letters:
+    for char in text:
+        rotated_idx = (alphabet_position(char) + 13) % 26
         if char.isupper():
-            capitalize = True
-
-        char_val = (alphabet_position(char) + rot) % 26
-
-        if capitalize:
-            return string.ascii_uppercase[char_val]
+            rotated = rotated + alphabet[rotated_idx].upper()
         else:
-            return string.ascii_lowercase[char_val]
-    else:
-        return char
+            rotated = rotated + alphabet[rotated_idx]
+
+    return rotated
