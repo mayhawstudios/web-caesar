@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.config['DEBUG'] = True
 
-page_header = """
+form = """
 <!DOCTYPE html>
 
 <html>
@@ -28,36 +28,27 @@ page_header = """
         </style>
     </head>
     <body>
- """
-cypher_form = """
 <form action="/encrypt" method="POST">
     Rotate By :<input type="text" name="rot" id="rot" value="0"><br>
-    <textarea name="text">
-    </textarea><br>
+    <textarea name="text"></textarea><br>
     <input type="submit" value="Submit Query">
 </form>
-<p name="error"></p>
-"""
-
-page_footer = """
-    </body>
-</html>
 """
 
 @app.route("/encrypt", methods=['POST'])
 def encrypt():
     rot = request.form['rot']
     plaintext = request.form['text'].strip()
+    newtext = ""
 
     if type(int(rot)) != int:
-        error = "You must input a valid number."
+        newtext = "You must input a valid number."
 
-        return redirect("/?error=" + error)
+        return newtext
 
     if plaintext.strip() == "":
-        error = "You cannot leave text blank."
+        return newtext
 
-        return redirect("/?error=" + error)
     else:
         rot = int(rot)
 
@@ -73,7 +64,6 @@ def index():
     else:
         error_element = ''
 
-    form = page_header + cypher_form + page_footer
     return form
 
 app.run()
