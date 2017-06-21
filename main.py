@@ -29,8 +29,9 @@ page_header = """
 cypher_form = """
 <form action="/cypher" method="POST">
     <label for="rot">Rotate By:</label>
-    <imput type="text" name="rot" id="rot">
-    <textarea>
+    <imput type="text" name="rot" id="rot" value="0">
+    <textarea name="text">
+    <imput type="submit" value="Submit Query">
 </form>
 """
 
@@ -41,4 +42,5 @@ page_footer = """
 
 @app.route("/")
 def index():
-    
+    form = page_header + cypher_form + page_footer
+    return form
