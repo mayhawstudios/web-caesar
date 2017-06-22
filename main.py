@@ -35,35 +35,8 @@ form = """
 </form>
 """
 
-@app.route("/encrypt", methods=['POST'])
-def encrypt():
-    rot = request.form['rot']
-    plaintext = request.form['text'].strip()
-    newtext = ""
-
-    if type(int(rot)) != int:
-        newtext = "You must input a valid number."
-
-        return newtext
-
-    if plaintext.strip() == "":
-        return newtext
-
-    else:
-        rot = int(rot)
-
-        return rotate_string(plaintext,rot)
-
 @app.route("/")
 def index():
-    # if we have an error, make a <p> to display it
-    error = request.args.get("error")
-    if error:
-        error_esc = cgi.escape(error, quote=True)
-        error_element = '<p>' + error_esc + '</p>'
-    else:
-        error_element = ''
-
     return form
 
 app.run()
